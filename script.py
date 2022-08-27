@@ -20,13 +20,20 @@ today = datetime.now().strftime("%b-%d-%Y")
 to_graph = {} # The empty dictionary to store our shaped data
 count = 1 # A global iterator to track each day past current datetime
 
+# for day in forecast_list:
+#     current_date = int(today[4:6]) + count
+#     this_day = f"{today[0:4]}{current_date}{today[6:]}"
+#     count += 1
+
+#     to_graph[this_day] = day['wind']
+# print(to_graph)
+
 for day in forecast_list:
     current_date = int(today[4:6]) + count
     this_day = f"{today[0:4]}{current_date}{today[6:]}"
-    count += 1
-
+    count += 1 if current_date <= 31 else 1
+    day['wind'] = 0 if day['wind'][0] == ' ' else int(day['wind'][:2])
     to_graph[this_day] = day['wind']
-print(to_graph)
 
 # expected output should look something like:
 #   {'Aug-24-2021': 12,
